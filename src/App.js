@@ -20,15 +20,24 @@ class App extends Component {
       {
         id: 3,
         title: 'Read a bedtime story',
-        isCompleted: true
+        isCompleted: false
       }
     ]
+  }
+  toggleComplete = (id) => {
+    this.setState({ todos: this.state.todos.map( todo => {
+        if (todo.id === id) {
+          todo.isCompleted = !todo.isCompleted
+        }
+        return todo
+      })
+    }) 
   } 
   render() {
     return (
       <div className="App">
         <h1>TEST</h1>
-        <Todos todos={this.state.todos}/>
+        <Todos todos={ this.state.todos } toggleComplete={ this.toggleComplete } />
       </div>
     );
   }
