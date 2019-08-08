@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import Todos from './components/Todos'
 import Header from './components/layout/Header'
+import AddTodo from './components/AddTodo'
+import uuid from 'uuid'
 
 // function App() {
 
@@ -9,17 +11,17 @@ class App extends Component {
   state = {
     todos: [
       {
-        id: 1,
+        id: uuid.v4(),
         title: 'Take out the trash',
         isCompleted: false
       },
       {
-        id: 2,
+        id: uuid.v4(),
         title: 'Dinner with wife',
         isCompleted: false
       },
       {
-        id: 3,
+        id: uuid.v4(),
         title: 'Read a bedtime story',
         isCompleted: false
       }
@@ -39,14 +41,26 @@ class App extends Component {
         return todo
       })
     }) 
-  } 
+  }
+  AddTodo = (title) => {
+    const newTodo = {
+      id: uuid.v4(),
+      title,
+      isCompleted: false
+    }
+    this.setState({ todos: [...this.state.todos, newTodo ] })
+  }
+  
   render() {
     return (
       <div className="App">
-        <Header />
-        <Todos todos={ this.state.todos } 
-          toggleComplete={ this.toggleComplete }
-          deleteTodo={ this.deleteTodo } />
+        <div className="container">
+          <Header />
+          <AddTodo AddTodo={ this.AddTodo }/>
+          <Todos todos={ this.state.todos } 
+            toggleComplete={ this.toggleComplete }
+            deleteTodo={ this.deleteTodo } />
+        </div>
       </div>
     );
   }
